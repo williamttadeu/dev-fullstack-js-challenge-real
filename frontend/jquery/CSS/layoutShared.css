@@ -1,0 +1,87 @@
+body{
+    display: flex;
+    margin: 0px;
+}
+
+.padding-left-right-20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+/* Begin NAV-BAR */
+
+.main-nav{
+    background-color: #212529;
+    width: 250px;
+    height: 100vh;
+}
+
+.main-nav header{
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+/*     justify-content: center; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.main-nav .nav-links{
+    list-style: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* margin-top: 0px; */
+
+
+}
+
+.main-nav .nav-links a.nav-item{
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    display: block;
+    border-radius: 5px;
+}
+
+.main-nav .nav-links a.nav-item:hover{
+    background-color: #0d6efd;
+    display: block;
+}
+
+/* End NAV-BAR */
+
+/* Begin container */
+.container{
+    
+    width: 100%;
+}
+
+.container .main-header{
+    background-color: #21252980;
+/*     width: 100%; Não precisa por conta do witdh do container */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+
+/* begin BUTTON */
+.btn{
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+/* end BUTTON */
+
+/* begin MARGIN */
+.margin-left-10{
+    margin-left: 10px;
+}
+.margin-right-10{
+    margin-right: 10px;
+}

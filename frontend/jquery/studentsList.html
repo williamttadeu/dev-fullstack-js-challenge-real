@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students List</title>
+    <link rel="stylesheet" href="CSS/studentsList.css">
+    <link rel="stylesheet" href="CSS/LayoutShared.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <header>Módulo Acadêmico</header>
+
+        <ul class="nav-links">
+            <a class="nav-item" href="#">
+                <li>Alunos</li>
+            </a>
+        </ul>
+    </nav>
+
+    <section class="container">
+        <header class="main-header">Consulta de Alunos</header>
+
+        <div class="content-page">
+            <div class="padding-left-right-20">
+                <!-- To work easy-> two buttons in the same div -->
+                <div class="top-actions">
+                    <form action="" class="form-search">
+                        <input type="text" name='searchInput' id="searchInput" placeholder="Digite sua Busca">
+                        <button>Pesquisar</button>
+                    </form>
+
+                    <button>Cadastrar Aluno</button>
+                </div>
+
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>Registro acadêmico</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1999</td>
+                            <td>Aluno 01</td>
+                            <td>8291838-8384</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1999</td>
+                            <td>Aluno 02</td>
+                            <td>46738-8384</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1999</td>
+                            <td>Aluno 03</td>
+                            <td>9910531-68</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>
