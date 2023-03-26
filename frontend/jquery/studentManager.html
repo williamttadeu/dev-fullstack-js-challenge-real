@@ -13,7 +13,7 @@
         <header>Módulo Acadêmico</header>
 
         <ul class="nav-links">
-            <a class="nav-item" href="#">
+            <a class="nav-item" href="studentsList.html">
                 <li>Alunos</li>
             </a>
         </ul>
@@ -22,8 +22,9 @@
     <section class="container">
         <header class="main-header">Consulta de Alunos</header>
 
-        <div class="content-page padding-left-right-20">
-            <form action="" class="form">
+        <div class="loader"></div>
+        <div class="content-page padding-left-right-20 display-none">
+            <form action="" class="form" id="studentForm">
                 <div class="form-group">
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name" placeholder="Informe o nome completo">
@@ -49,6 +50,8 @@
             
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="JS/studentManager.js"></script>
     
 </body>
 </html>

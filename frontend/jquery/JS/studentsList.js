@@ -13,7 +13,8 @@ function fetchStudentsList(){
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
+            
+            
             const table = $("#studentList tbody");
             data.map(function(student){
                 table.append(`
@@ -23,13 +24,18 @@ function fetchStudentsList(){
                         <td>${student.name}</td>
                         <td>${student.cpf}</td>
                         <td>
-                            <a href="#">Editar</a>
+                            <a href="studentManager.html?/ra=${student.ra}">Editar</a>
                             <a href="#">Excluir</a>
                         </td>
                     </tr>
 
                 `);
-            })
-        })
+            });
+
+            //$(".loader").removeClass("loader");
+            //or we can use "hide"
+            $(".loader").hide("fast");
+            $(".content-page").removeClass("display-none");
+        });
 
 }
