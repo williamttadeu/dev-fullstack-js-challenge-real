@@ -7,6 +7,7 @@ let database = require("./database");
 const app = express()
 
 app.use(cors());
+app.use(express.json());
 //(app.use(cors());) after this line all "app" will use cors 
 
 app.get('/', function (req, res) {
@@ -33,6 +34,19 @@ app.get("/students/find/:ra", function(req,res){
   
 });
 
+app.post("/students/save", (req, res)=>{
+  //add data in database
+  database.push({
+    name: req.body.name,
+    ra: req.body.ra,
+    email: req.body.email,
+    cpf: req.body.cpf,
+  });
+  //const newStudent  =
+  console.log(req.body);
+  res.send({result:true, message: "Estudante cadastrado com sucesso"}); 
+});
+
 app.delete("/students/delete/:ra",(req,res)=>{
   database = database.filter((student)=>{
     return student.ra != req.params.ra;
@@ -41,6 +55,9 @@ app.delete("/students/delete/:ra",(req,res)=>{
     result:true,
     message: `O estudante #${req.params.ra} foi excluido com sucesso`});
 })
+
+
+
 
 app.listen(3000);
 console.log("serve is running");
