@@ -47,6 +47,23 @@ app.post("/students/save", (req, res)=>{
   res.send({result:true, message: "Estudante cadastrado com sucesso"}); 
 });
 
+//edit is sum of delete and add a new user
+app.put('/students/edit/:ra',(req,res)=>{
+  //delete
+  database = database.filter((student)=>{
+    return student.ra != req.params.ra;
+  });
+  //after that you add
+  database.push({
+    name: req.body.name,
+    ra: req.body.ra,
+    email: req.body.email,
+    cpf: req.body.cpf,
+  });
+  res.send({result:true, message: "Estudante ALTERADO com sucesso"});
+})
+
+
 app.delete("/students/delete/:ra",(req,res)=>{
   database = database.filter((student)=>{
     return student.ra != req.params.ra;
