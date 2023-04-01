@@ -4,6 +4,7 @@
 $(document).ready(function(){
 
     if(isEditingMode()){
+        setReadOnlyFields();
         fetchStudent();
     } else{
         //it means that we are joing a new student
@@ -53,6 +54,12 @@ $(document).ready(function(){
     });     
     
 });
+
+function setReadOnlyFields(){
+    const studentForm = $('#studentForm');
+    studentForm.find("#ra").attr("readonly",true);
+    studentForm.find("#cpf").attr("readonly",true);
+}
 
 function fetchStudent(){
 

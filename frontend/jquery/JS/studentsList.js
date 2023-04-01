@@ -7,13 +7,18 @@ $(document).ready(function() {
         //another way
         //alert($(this).attr("data-ra"));
         //alert($(this).attr("id"));
-
         //confimation of delete
         const confirmation = confirm("Você deseja realmente excluir esse estudante?");
         if(confirmation){
             deleteStudent(ra);
         }
         
+    });
+
+    //EVENT - Search Student
+    $("#formSearchStudent").submit((eventi) =>{
+        eventi.preventDefault();
+        fetchStudentsList(eventi.target.searchInput.value);
         
     });
 
@@ -35,13 +40,14 @@ const deleteStudent = (ra) =>{
 
 
 //This fuction will take students list
-function fetchStudentsList(){
+function fetchStudentsList(searchQuery = ""){
 
     $(".loader").show("fast");
     //$(".content-page").hide("slow");
-    $(".content-page").show("slow");
+    $(".content-page").hide("slow");
+    
     //fetch is API that allow we do HTTP requisitions
-    fetch("http://localhost:3000/students/list")
+    fetch(`http://localhost:3000/students/list/${searchQuery}`)
         .then(function(response) {
             return response.json();
         })
@@ -67,7 +73,8 @@ function fetchStudentsList(){
             //$(".loader").removeClass("loader");
             //or we can use "hide"
             $(".loader").hide("fast");
-            $(".content-page").removeClass("display-none");
+            $(".content-page").show("slow");
+            //$(".content-page").removeClass("display-none");
         });
 
 }

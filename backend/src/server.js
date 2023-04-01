@@ -14,9 +14,23 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 });
 
-app.get("/students/list", function(req, res){
+//":searchQuery?" => It make optional and i can use the same endpoint
+app.get("/students/list/:searchQuery?", function(req, res){
+  let result = database;
+  let search = req.params.searchQuery;
+  console.log(search);
+
+  if(search){
+    search = search.toLowerCase();
+    result = result.filter((student)=>{
+      return student.ra == search||
+      student.name.toLowerCase().indexOf(search) !=-1||
+      student.cpf == search;
+    });
+  }
+
   setTimeout(function(){
-    res.send(database);
+    res.send(result);
   },2000);
 
   
