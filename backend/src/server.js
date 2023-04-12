@@ -1,10 +1,15 @@
-const express = require('express')
+const express = require('express');
+const knex = require('knex');
 // to allow different ports access the API
 var cors = require("cors")
 
 let database = require("./database");
+const knexConfigFile = require("../knexfile");
 
 const app = express()
+
+
+app.database = knex(knexConfigFile.test);
 
 app.use(cors());
 app.use(express.json());
@@ -29,23 +34,25 @@ app.get("/students/list/:searchQuery?", function(req, res){
     });
   }
 
-  setTimeout(function(){
-    res.send(result);
-  },2000);
-
+  return app.database("students")
+            .select()
+            .then((data)=>{
+              console.log(data);
+              res.send(data);
+            });
   
-})
+});
 
 app.get("/students/find/:ra", function(req,res){
-  const studentFound = database.find(function(student){
-    return student.ra == req.params.ra;
-  });
 
-  setTimeout(function(){
-    res.send(studentFound);{}
-  },2000);
-
-  
+  return app
+    .database("students")
+    .select()
+    .where({ra : req.params.ra})
+    .first()
+    .then((response)=>{
+      res.send(response);
+    });  
 });
 
 app.post("/students/save", (req, res)=>{
@@ -63,6 +70,44 @@ app.post("/students/save", (req, res)=>{
 
 //edit is sum of delete and add a new user
 app.put('/students/edit/:ra',(req,res)=>{
+  //verify if student exist
+  //const studentFound
+   return app.database("students")
+  .select()
+  .where({ra: req.params.ra})
+  .first()
+  .then((response)=>{
+    if (response){
+      return app.database("students")
+      .update({
+        name: req.body.name,
+        email: req.body.email,
+      })
+      .where({
+        ra: req.body.ra,
+      })
+      .then((response)=>{
+        if(response){
+          res.send({
+            result: true,
+            message: "Estudante atualizado com sucesso",
+          });
+        } else{
+          res.status(500).send({
+            result: false,
+            message: "Desculpe, mas não conseguimos atualizar o estudante",
+          });
+        }
+      });
+
+    } else{
+      return res.status(400).send({
+        result: false,
+        message: "O estudante informado não existe",
+        });
+    }
+  });
+
   //delete
   database = database.filter((student)=>{
     return student.ra != req.params.ra;
