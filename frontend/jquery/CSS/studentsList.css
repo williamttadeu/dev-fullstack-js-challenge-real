@@ -1,0 +1,37 @@
+
+
+.container .content-page .top-actions{
+    margin-top: 20px;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .content-page .top-actions .form-search{
+    
+}
+
+.container .content-page .table-list{
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    border-color: #dee2e6;
+}
+
+.container .content-page .table-list thead{
+    height: 50px;
+    background-color: #21252940;;
+}
+
+
+.container .content-page .table-list tbody tr{
+    height: 40px;
+}
+
+/* ZEBRA colors */
+.container .content-page .table-list tr:nth-child(even){
+    background-color: #21252920;
+}

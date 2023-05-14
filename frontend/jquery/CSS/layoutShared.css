@@ -1,0 +1,129 @@
+body{
+    display: flex;
+    margin: 0px;
+}
+
+.padding-left-right-20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+/* Begin NAV-BAR */
+
+.main-nav{
+    background-color: #212529;
+    width: 250px;
+    height: 100vh;
+}
+
+.main-nav header{
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+/*     justify-content: center; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.main-nav .nav-links{
+    list-style: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* margin-top: 0px; */
+
+
+}
+
+.main-nav .nav-links a.nav-item{
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    display: block;
+    border-radius: 5px;
+}
+
+.main-nav .nav-links a.nav-item:hover{
+    background-color: #0d6efd;
+    display: block;
+}
+
+/* End NAV-BAR */
+
+/* Begin container */
+.container{
+    
+    width: 100%;
+}
+
+.container .main-header{
+    background-color: #21252980;
+/*     width: 100%; Não precisa por conta do witdh do container */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+
+/* begin BUTTONS*/
+.btn{
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+
+.btn.btn-dark{
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+    vertical-align: middle;
+    
+}
+
+.btn.btn-warning{
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    margin-right: 10px;
+}
+/* end BUTTONS */
+
+/* begin MARGIN */
+.margin-left-10{
+    margin-left: 10px;
+}
+.margin-right-10{
+    margin-right: 10px;
+}
+
+/* LOADING */
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    margin-top: 45px;
+    margin-bottom: 45px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .display-none{
+    display: none;
+  }
