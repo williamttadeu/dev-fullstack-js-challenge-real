@@ -8,7 +8,6 @@ const knexConfigFile = require("../knexfile");
 
 const app = express()
 
-
 app.database = knex(knexConfigFile.test);
 
 app.use(cors());
@@ -34,6 +33,7 @@ app.get("/students/list/:searchQuery?", function(req, res){
     });
   }
 
+  //table that i will work
   return app.database("students")
             .select()
             .then((data)=>{
@@ -69,59 +69,43 @@ app.post("/students/save", (req, res)=>{
 });
 
 //edit is sum of delete and add a new user
-app.put('/students/edit/:ra',(req,res)=>{
-  //verify if student exist
-  //const studentFound
-   return app.database("students")
-  .select()
-  .where({ra: req.params.ra})
-  .first()
-  .then((response)=>{
-    if (response){
-      return app.database("students")
-      .update({
-        name: req.body.name,
-        email: req.body.email,
-      })
-      .where({
-        ra: req.body.ra,
-      })
-      .then((response)=>{
-        if(response){
-          res.send({
-            result: true,
-            message: "Estudante atualizado com sucesso",
-          });
-        } else{
-          res.status(500).send({
-            result: false,
-            message: "Desculpe, mas não conseguimos atualizar o estudante",
-          });
-        }
+app.put('/students/edit/:ra',async(req,res)=>{
+
+  const userFound = await app
+    .database("students")
+    .select()
+    .where({ra: req.params.ra})
+    .first()
+
+  if(!userFound){
+    return res.status(400).send({
+      result: false,
+      message: "O estudante informado não existe",
       });
+  }
 
-    } else{
-      return res.status(400).send({
-        result: false,
-        message: "O estudante informado não existe",
-        });
-    }
-  });
-
-  //delete
-  database = database.filter((student)=>{
-    return student.ra != req.params.ra;
-  });
-  //after that you add
-  database.push({
+  const studentUpdate = await app
+  .database("students")
+  .update({
     name: req.body.name,
-    ra: req.body.ra,
     email: req.body.email,
-    cpf: req.body.cpf,
+  })
+  .where({
+    ra: req.body.ra,
   });
-  res.send({result:true, message: "Estudante ALTERADO com sucesso"});
-})
 
+  if(studentUpdate){
+    res.send({
+      result: true,
+      message: "Estudante atualizado com sucesso",
+    });
+  } else{
+    res.status(500).send({
+      result: false,
+      message: "Desculpe, mas não conseguimos atualizar o estudante",
+    });
+  }
+});
 
 app.delete("/students/delete/:ra",(req,res)=>{
   database = database.filter((student)=>{
