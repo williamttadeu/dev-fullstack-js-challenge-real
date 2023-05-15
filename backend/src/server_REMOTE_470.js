@@ -8,10 +8,7 @@ const knexConfigFile = require("../knexfile");
 
 const app = express()
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
 app.database = knex(knexConfigFile.test);
 
 app.use(cors());
@@ -37,10 +34,6 @@ app.get("/students/list/:searchQuery?", function(req, res){
     });
   }
 
-<<<<<<< HEAD
-  //table that i will work
-=======
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
   return app.database("students")
             .select()
             .then((data)=>{
@@ -76,45 +69,6 @@ app.post("/students/save", (req, res)=>{
 });
 
 //edit is sum of delete and add a new user
-<<<<<<< HEAD
-app.put('/students/edit/:ra',async(req,res)=>{
-
-  const userFound = await app
-    .database("students")
-    .select()
-    .where({ra: req.params.ra})
-    .first()
-
-  if(!userFound){
-    return res.status(400).send({
-      result: false,
-      message: "O estudante informado não existe",
-      });
-  }
-
-  const studentUpdate = await app
-  .database("students")
-  .update({
-    name: req.body.name,
-    email: req.body.email,
-  })
-  .where({
-    ra: req.body.ra,
-  });
-
-  if(studentUpdate){
-    res.send({
-      result: true,
-      message: "Estudante atualizado com sucesso",
-    });
-  } else{
-    res.status(500).send({
-      result: false,
-      message: "Desculpe, mas não conseguimos atualizar o estudante",
-    });
-  }
-});
-=======
 app.put('/students/edit/:ra',(req,res)=>{
   //verify if student exist
   //const studentFound
@@ -168,7 +122,6 @@ app.put('/students/edit/:ra',(req,res)=>{
   res.send({result:true, message: "Estudante ALTERADO com sucesso"});
 })
 
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
 
 app.delete("/students/delete/:ra",(req,res)=>{
   database = database.filter((student)=>{
