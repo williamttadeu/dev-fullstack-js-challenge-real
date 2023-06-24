@@ -11,9 +11,7 @@ module.exports = {
         directory: "migrations",
       },
     },
-<<<<<<< HEAD
+
   };
-  //knexfile
-=======
-  };
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
+
+

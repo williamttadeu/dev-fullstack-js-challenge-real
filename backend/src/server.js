@@ -8,10 +8,6 @@ const knexConfigFile = require("../knexfile");
 
 const app = express()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
 app.database = knex(knexConfigFile.test);
 
 app.use(cors());
@@ -24,45 +20,116 @@ app.get('/', function (req, res) {
 
 //":searchQuery?" => It make optional and i can use the same endpoint
 app.get("/students/list/:searchQuery?", function(req, res){
+
+  let query = app.database("students");
+
   let result = database;
   let search = req.params.searchQuery;
-  console.log(search);
 
   if(search){
-    search = search.toLowerCase();
-    result = result.filter((student)=>{
-      return student.ra == search||
-      student.name.toLowerCase().indexOf(search) !=-1||
-      student.cpf == search;
-    });
+    query.where("ra",search)
+    .orWhere("name","like",`%${search}%`)
+    .orWhere("cpf",search);
   }
 
-<<<<<<< HEAD
   //table that i will work
-=======
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
-  return app.database("students")
-            .select()
-            .then((data)=>{
-              console.log(data);
-              res.send(data);
-            });
+  return query
+    .select()
+    .then((data)=>{
+      res.send(data);
+    });
   
 });
 
 app.get("/students/find/:ra", function(req,res){
 
-  return app
-    .database("students")
+  let query = app.database("students");
+
+  return query
     .select()
     .where({ra : req.params.ra})
     .first()
     .then((response)=>{
+      
       res.send(response);
     });  
 });
 
-app.post("/students/save", (req, res)=>{
+app.post("/students/save", async(req, res)=>{
+
+  //validation
+  if(req.body.name ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O nome é um campo obrigatório",
+    });
+  }
+  if(req.body.email ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O e-mail é um campo obrigatório",
+    });
+  }
+  if(req.body.ra ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O RA é um campo obrigatório",
+    });
+  }
+  if(req.body.cpf ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O CPF é um campo obrigatório",
+    });
+  }
+
+  if(parseInt(req.body.ra) !=req.body.ra){
+    return res.status(400).send({
+      result: false,
+      message: "O RA deve ser um número inteiro",
+    });
+  }
+
+  if(parseInt(req.body.cpf) !=req.body.cpf){
+    return res.status(400).send({
+      result: false,
+      message: "O CPF deve ser um número inteiro",
+    });
+  }
+
+  const userExists = await app.database("students")
+  .select()
+  .where({ra:req.body.ra})
+  .first()
+
+if(userExists){
+  return res.status(400).send({
+    result: false,
+    message: "Desculpe mas já existe um usuário cadastrado com esse RA",
+  });
+}
+
+
+  return app.database("students")
+  .insert({
+    name: req.body.name,
+    ra: req.body.ra,
+    email: req.body.email,
+    cpf: req.body.cpf,
+  })
+  .then((response)=>{
+    if(response){
+      res.send({
+        result: true,
+        message: "Estudante cadastrado com sucesso",
+      });
+    } else{
+      res.status(500).send({
+        result: false,
+        message: "Não foi possível cadastrar o estudante",
+      })
+    }
+  });
   //add data in database
   database.push({
     name: req.body.name,
@@ -76,108 +143,78 @@ app.post("/students/save", (req, res)=>{
 });
 
 //edit is sum of delete and add a new user
-<<<<<<< HEAD
 app.put('/students/edit/:ra',async(req,res)=>{
+
+  if(req.body.name ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O nome é um campo obrigatório",
+    });
+  }
+  if(req.body.email ==""){
+    return res.status(400).send({
+      result: false,
+      message: "O e-mail é um campo obrigatório",
+    });
+  }
 
   const userFound = await app
     .database("students")
     .select()
     .where({ra: req.params.ra})
-    .first()
+    .first();
 
-  if(!userFound){
-    return res.status(400).send({
-      result: false,
-      message: "O estudante informado não existe",
-      });
-  }
+    if(!userFound){
+      return res.status(400).send({
+        result: false,
+        message: "O estudante informado não existe",
+        });
+    }
 
-  const studentUpdate = await app
-  .database("students")
-  .update({
-    name: req.body.name,
-    email: req.body.email,
-  })
-  .where({
-    ra: req.body.ra,
-  });
-
-  if(studentUpdate){
-    res.send({
-      result: true,
-      message: "Estudante atualizado com sucesso",
-    });
-  } else{
-    res.status(500).send({
-      result: false,
-      message: "Desculpe, mas não conseguimos atualizar o estudante",
-    });
-  }
-});
-=======
-app.put('/students/edit/:ra',(req,res)=>{
-  //verify if student exist
-  //const studentFound
-   return app.database("students")
-  .select()
-  .where({ra: req.params.ra})
-  .first()
-  .then((response)=>{
-    if (response){
-      return app.database("students")
+      const studentUpdate = await app
+      .database("students")
       .update({
         name: req.body.name,
         email: req.body.email,
       })
       .where({
         ra: req.body.ra,
-      })
-      .then((response)=>{
-        if(response){
-          res.send({
-            result: true,
-            message: "Estudante atualizado com sucesso",
-          });
-        } else{
-          res.status(500).send({
-            result: false,
-            message: "Desculpe, mas não conseguimos atualizar o estudante",
-          });
-        }
       });
 
-    } else{
-      return res.status(400).send({
-        result: false,
-        message: "O estudante informado não existe",
+      if(studentUpdate){
+        res.send({
+          result: true,
+          message: "Estudante atualizado com sucesso",
         });
-    }
-  });
-
-  //delete
-  database = database.filter((student)=>{
-    return student.ra != req.params.ra;
-  });
-  //after that you add
-  database.push({
-    name: req.body.name,
-    ra: req.body.ra,
-    email: req.body.email,
-    cpf: req.body.cpf,
-  });
-  res.send({result:true, message: "Estudante ALTERADO com sucesso"});
-})
-
->>>>>>> 2cbae47fe934ca6c8aaec1f2e6a94e95ebd36c35
+      } else{
+        res.status(500).send({
+          result: false,
+          message: "Desculpe, mas não conseguimos atualizar o estudante",
+        });
+      }
+});
 
 app.delete("/students/delete/:ra",(req,res)=>{
-  database = database.filter((student)=>{
-    return student.ra != req.params.ra;
-  });
-  res.send({
-    result:true,
-    message: `O estudante #${req.params.ra} foi excluido com sucesso`});
-})
+  return app.database('students')
+    .where({ra:req.params.ra})
+    .del()
+    .then((response)=>{
+      if(response){
+        res.send({
+          result:true,
+          message: `O estudante #${req.params.ra} foi excluido com sucesso`,
+        });
+      } else{
+        res.send({
+          result:false,
+          message: `Não foi possível excluir o estudante`,
+        });
+      }
+    });
+});
+
+
+  
 
 
 
