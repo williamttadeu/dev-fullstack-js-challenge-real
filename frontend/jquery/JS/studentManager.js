@@ -48,7 +48,9 @@ $(document).ready(function(){
             })
             .then((data)=>{
                 alert(data.message);
+                if(data.result){
                 document.location.href = "studentsList.html";
+                }
             });
 
     });     
