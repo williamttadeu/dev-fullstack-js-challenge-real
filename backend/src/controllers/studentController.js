@@ -32,58 +32,52 @@ module.exports = class studentsController{
             });  
     };
 
-    registerStudent = async (req,res)=>{
-        if(req.body.name ==""){
-            return res.status(400).send({
-              result: false,
-              message: "O nome é um campo obrigatório",
-            });
-          }
-          if(req.body.email ==""){
-            return res.status(400).send({
-              result: false,
-              message: "O e-mail é um campo obrigatório",
-            });
-          }
-          if(req.body.ra ==""){
-            return res.status(400).send({
-              result: false,
-              message: "O RA é um campo obrigatório",
-            });
-          }
-          if(req.body.cpf ==""){
-            return res.status(400).send({
-              result: false,
-              message: "O CPF é um campo obrigatório",
-            });
-          }
-        
-          if(parseInt(req.body.ra) !=req.body.ra){
-            return res.status(400).send({
-              result: false,
-              message: "O RA deve ser um número inteiro",
-            });
-          }
-        
-          if(parseInt(req.body.cpf) !=req.body.cpf){
-            return res.status(400).send({
-              result: false,
-              message: "O CPF deve ser um número inteiro",
-            });
-          }
-        
-          const userExists = await this.app.database("students")
-          .select()
-          .where({ra:req.body.ra})
-          .first()
-        
-        if(userExists){
-          return res.status(400).send({
-            result: false,
-            message: "Desculpe mas já existe um usuário cadastrado com esse RA",
-          });
+    IsRegisterDataValid = async (data)=>{
+        if(data.name ==""){
+            return "O nome é um campo obrigatório"
+            };
+
+        if(data.email ==""){
+        return "O e-mail é um campo obrigatório"
+        };
+
+        if(data.ra ==""){
+            return  "O RA é um campo obrigatório"
+          };
+
+        if(data.cpf ==""){
+        return "O CPF é um campo obrigatório"
         }
+    
+        if(parseInt(data.ra) !=data.ra){
+        return "O RA deve ser um número inteiro"
+        }
+    
+        if(parseInt(data.cpf) !=data.cpf){
+        return "O CPF deve ser um número inteiro"
+        }
+
+        const userExists = await this.app.database("students")
+        .select()
+        .where({ra:data.ra})
+        .first()
+
+        if(userExists){
+          return  "Desculpe mas já existe um usuário cadastrado com esse RA"
+          };
         
+
+        return true
+
+    }
+    registerStudent = async (req,res)=>{
+        const IsRegisterDataValid = await this.IsRegisterDataValid(req.body);
+        if(IsRegisterDataValid !== true){
+            return res.status(400).send({
+                result: false,
+                message: IsRegisterDataValid,
+            })
+        }
         
           return this.app.database("students")
           .insert({
@@ -107,20 +101,25 @@ module.exports = class studentsController{
           });
     };
 
+    CheckIfEditDataIsValid = async(data)=>{
+      if(data.name ==""){
+        return "O nome é um campo obrigatório";
+      }
+      if(data.email ==""){
+        return "O e-mail é um campo obrigatório";
+      }
+
+      return true
+
+    }
     editStudentByRA = async (req,res)=>{
-        if(req.body.name ==""){
-            return res.status(400).send({
+      const CheckIfEditDataIsValid = await this.CheckIfEditDataIsValid(req.body);
+      if(CheckIfEditDataIsValid != true){
+          return res.status(400).send({
               result: false,
-              message: "O nome é um campo obrigatório",
-            });
-          }
-          if(req.body.email ==""){
-            return res.status(400).send({
-              result: false,
-              message: "O e-mail é um campo obrigatório",
-            });
-          }
-        
+              message: CheckIfEditDataIsValid,
+          })
+      }
           const userFound = await this.app
             .database("students")
             .select()
