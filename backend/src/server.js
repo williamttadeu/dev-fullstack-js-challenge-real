@@ -13,5 +13,5 @@ app.use(express.json());
 
 app.use("/students",studentsRoutes(app))
 
-app.listen(3000);
+app.listen(3006);
 console.log("serve is running");
