@@ -5,17 +5,11 @@ import Navbar from './Components/Shared/NavBar';
 function App() {
   return (
     <div className='main-container'>
-
       <Navbar/>
-
-
     <section className="container">
         <header className="main-header">Consulta de Alunos</header>
-
-        <div className="loader"></div>
         <div className="content-page">
           <StudentListPage/>
-            
         </div>
     </section>
     </div>

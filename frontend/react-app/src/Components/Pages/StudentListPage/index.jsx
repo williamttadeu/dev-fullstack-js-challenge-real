@@ -4,30 +4,64 @@ import "./style.css";
 class StudentListPage extends React.Component{
 
     constructor(properties){
-        console.log("chamado o construtor", properties)
         super(properties)
         this.state={
             studentList:[],
+            isLoading:true,
+            formSearch: {
+                searchInput: "",
+            },
 
         }
     }
     
     componentDidMount(){
-        alert('Compenete acontencendo')
         this.fetchStudentsList()
 
     }
 
-    fetchStudentsList=(searchQuery = "")=>{
+    onClickRemoveStudent =(ra)=>{
+        const confirmation = window.confirm(
+            "Você deseja realmente excluir esse estudante?");
+        if(confirmation){
+            this.onClickDeleteStudent(ra);
+        }
 
-        // $(".loader").show("fast");
-        // $(".content-page").hide("slow");
-        
+    }
+
+    onClickDeleteStudent = (ra) =>{
+        this.setState({isLoading: true})
+
+        fetch(`http://localhost:3006/students/delete/${ra}`,{
+                method:"DELETE"
+            }).then((response)=>{
+                
+                return response.json();
+            }).then((data)=>{
+                alert(data.message);
+                this.fetchStudentsList();
+            });
+    
+    };
+
+    onSubmitFormSearch = (event)=>{
+        event.preventDefault();
+        this.fetchStudentsList(event.target.searchInput.value);
+
+    };
+
+    fetchStudentsList=(searchQuery = "")=>{
+        this.setState({isLoading: true})
         fetch(`http://localhost:3006/students/list/${searchQuery}`)
-        .then(response => response.json())
+        .then(response => {
+            return response.json()
+        })
         .then(data => {
-            this.setState({ studentList: data });
-            console.log(data);
+            this.setState({ 
+                studentList: data,
+                isLoading: false
+
+             });
         })
         .catch(error => {
             console.log(error);
@@ -37,12 +71,22 @@ class StudentListPage extends React.Component{
 
 
     render(){
+
+         if(this.state.isLoading){
+             return <div className="loader"></div>
+         }
         return(
-            <div className="padding-left-right-20">
-                
+            <div className="padding-left-right-20">                               
                 <div className="top-actions">
-                    <form id="formSearchStudent" className="form-search">
-                        <input type="text" name='searchInput' id="searchInput" placeholder="Digite sua Busca"/>
+                    <form onSubmit={this.onSubmitFormSearch} id="formSearchStudent" className="form-search">
+                        <input type="text" name='searchInput' id="searchInput" value={this.state.formSearch.searchInput} 
+                        onChange={(event)=>{
+                            this.setState({
+                                formSearch:{
+                                    searchInput:event.target.value,
+                                },
+                            });
+                        }}  placeholder="Digite sua Busca"/>
                         <button>Pesquisar</button>
                     </form>
 
@@ -64,13 +108,13 @@ class StudentListPage extends React.Component{
 
                             return(
             
-                                <tr>
+                                <tr key={student.ra}>
                                     <td>{student.ra}</td>
                                     <td>{student.name}</td>
                                     <td>{student.cpf}</td>
                                     <td>
                                         <a href={`studentManager.html?/ra=${student.ra}`}>Editar</a>
-                                        <a id="" data-ra={student.ra} class="removeStudent" href="/#">Excluir</a>
+                                        <a id="" className="removeStudent" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
                                     </td>
                                 </tr>
                             );
