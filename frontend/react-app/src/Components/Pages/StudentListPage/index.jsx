@@ -76,6 +76,8 @@ class StudentListPage extends React.Component{
              return <div className="loader"></div>
          }
         return(
+            <>
+            <header class="main-header">Lista de Alunos</header>
             <div className="padding-left-right-20">                               
                 <div className="top-actions">
                     <form onSubmit={this.onSubmitFormSearch} id="formSearchStudent" className="form-search">
@@ -90,7 +92,7 @@ class StudentListPage extends React.Component{
                         <button>Pesquisar</button>
                     </form>
 
-                    <a className="btn btn-dark" href="student-manager">Cadastrar Aluno</a>
+                    <a className="btn btn-dark" href="student/add">Cadastrar Aluno</a>
                 
                 </div>
 
@@ -113,7 +115,7 @@ class StudentListPage extends React.Component{
                                     <td>{student.name}</td>
                                     <td>{student.cpf}</td>
                                     <td>
-                                        <a href={`studentManager.html?/ra=${student.ra}`}>Editar</a>
+                                        <a href={`/student/edit/${student.ra}`}>Editar</a>
                                         <a id="" className="removeStudent" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
                                     </td>
                                 </tr>
@@ -123,7 +125,8 @@ class StudentListPage extends React.Component{
                     </tbody>
                 </table>
             </div>
-
+        
+            </>
         )
     }
 }

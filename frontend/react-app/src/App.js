@@ -2,6 +2,7 @@ import './App.css';
 import StudentListPage from './Components/Pages/StudentListPage';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Navbar from './Components/Shared/NavBar';
+import StudentManagerPage from './Components/Pages/StudentListPage/StudentManagerPage';
 
 function App() {
   return (
@@ -9,12 +10,19 @@ function App() {
     <div className='main-container'>
       <Navbar/>
     <section className="container">
-        <header className="main-header">Consulta de Alunos</header>
         <div className="content-page">
         <Routes>
           <Route path='/' element={<StudentListPage/>} />
 
-          <Route path='/student-manager' element={<h1>Student manager pga</h1>} />
+          <Route 
+            path='/student/add' 
+            element={<StudentManagerPage/>}
+           />
+
+          <Route 
+            path='/student/edit/:ra' 
+            element={<StudentManagerPage/>}
+          />
           
           
         </Routes>
