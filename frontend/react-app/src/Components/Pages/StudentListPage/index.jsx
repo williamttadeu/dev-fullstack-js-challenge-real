@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import Loader from "../../Shared/NavBar/Loader";
 
 class StudentListPage extends React.Component{
 
@@ -73,11 +74,11 @@ class StudentListPage extends React.Component{
     render(){
 
          if(this.state.isLoading){
-             return <div className="loader"></div>
+             return <Loader />
          }
         return(
             <>
-            <header class="main-header">Lista de Alunos</header>
+            <header className="main-header">Lista de Alunos</header>
             <div className="padding-left-right-20">                               
                 <div className="top-actions">
                     <form onSubmit={this.onSubmitFormSearch} id="formSearchStudent" className="form-search">

@@ -1,35 +1,109 @@
 import "./style.css"
+import { useState } from "react";
+import Loader from "../../../Shared/NavBar/Loader";
 
 const StudentManagerPage =()=>{
+
+    const [isLoading,updateIsLoading] = useState(false)
+
+    const[name, updateName] =useState("")
+    const[email, updateEmail] =useState("")
+    const[cpf, updateCpf] =useState("")
+    const[ra, updateRa] =useState("")
+
+    const isEditingMode = ()=>{
+        return false
+    }
+
+    const getRaFromUrl = ()=>{
+        return 0
+    }
+
+    const  onSubmitForm = (event) =>{
+        event.preventDefault();
+        //take the values of forms
+        const body ={
+            name,
+            cpf,
+            ra,
+            email,
+        };
+        console.log(body)
+
+        //To avoid code repetition
+        let methodEndpoint;
+        let urlEndpoint;
+
+        if(isEditingMode()){
+            methodEndpoint = "PUT";
+            urlEndpoint = `http://localhost:3006/students/edit/${getRaFromUrl()}`;
+        }else{
+            methodEndpoint = "POST";
+            urlEndpoint = `http://localhost:3006/students/save`;
+        }
+        console.log(methodEndpoint,urlEndpoint);
+
+         fetch(urlEndpoint, {
+            method: methodEndpoint,
+            body: JSON.stringify(body),
+            headers:{
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                    },
+            })
+            .then((response)=>{
+                return response.json();
+            })
+            .then((data)=>{
+                alert(data.message);
+                if(data.result){
+                document.location.href = "/";
+                }
+            });
+    }
+
+    if(isLoading){
+        return < Loader />
+    }
+    
     return  (
         <>
-            <header class="main-header">Consulta de Alunos</header>
+            <header className="main-header">Consulta de Alunos</header>
 
-<div class="loader"></div>
-<div class="content-page padding-left-right-20">
-    <form class="form" id="studentForm" method="post">
-        <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name" placeholder="Informe o nome completo" required/>
+            {/* <div className="loader"></div> */}
+            <div className="content-page padding-left-right-20">
+                <form className="form" id="studentForm" method="post" onSubmit={onSubmitForm}>
+                <div className="form-group">
+                <label htmlFor="name">Nome</label>
+                <input type="text" name="name" id="name" placeholder="Informe o nome completo" value={name} onChange={(event)=>{
+                updateName(event.target.value)
+                    }} required/>
+            </div>
+
+        <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Informe o nome e-mail" value={email} onChange={(event)=>{
+                updateEmail(event.target.value)
+            }} required/>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Informe o nome e-mail" required/>
+        <div className="form-group">
+            <label htmlFor="ra">RA</label>
+            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" value={ra} onChange={(event)=>{
+                updateRa(event.target.value)
+            }} required/>
         </div>
-        <div class="form-group">
-            <label for="ra">RA</label>
-            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" required/>
-        </div>
-        <div class="form-group">
-            <label for="cpf">CPF</label>
-            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" required/>
+        <div className="form-group">
+            <label htmlFor="cpf">CPF</label>
+            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" value={cpf} onChange={(event)=>{
+                updateCpf(event.target.value)
+            }} required/>
         </div>
 
-        <div class="actions">
-            <a href="studentsList.html" class="btn btn-warning ">Cancelar</a>
+        <div className="actions">
+            <a href="studentsList.html" className="btn btn-warning ">Cancelar</a>
             
-            <a href="studentsList.html" class="btn">
-                <button class="btn">
+            <a href="studentsList.html" className="btn">
+                <button className="btn">
                 Salvar
                 </button>
             </a>
