@@ -1,4 +1,5 @@
 import "./style.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () =>{
     return(
@@ -6,9 +7,11 @@ const Navbar = () =>{
         <header>Módulo Acadêmico</header>
 
         <ul className="nav-links">
-            <a className="nav-item" href="studentsList.html">
-                <li>Alunos</li>
-            </a>
+
+        <Link className="nav-item" to='/'>
+            <li>Alunos</li>
+        </Link>
+
         </ul>
     </nav>
 

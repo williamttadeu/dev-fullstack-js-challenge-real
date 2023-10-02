@@ -1,9 +1,11 @@
 import "./style.css"
 import { useState } from "react";
 import Loader from "../../../Shared/NavBar/Loader";
+import { Navigate,Link } from "react-router-dom";
 
 const StudentManagerPage =()=>{
 
+    const [isRedirect, setIsRedirect] = useState(false)
     const [isLoading,updateIsLoading] = useState(false)
 
     const[name, updateName] =useState("")
@@ -57,9 +59,14 @@ const StudentManagerPage =()=>{
             .then((data)=>{
                 alert(data.message);
                 if(data.result){
+                    setIsRedirect(true)
                 document.location.href = "/";
                 }
             });
+    }
+
+    if(isRedirect){
+        return <Navigate to='/' />
     }
 
     if(isLoading){
@@ -100,13 +107,13 @@ const StudentManagerPage =()=>{
         </div>
 
         <div className="actions">
-            <a href="studentsList.html" className="btn btn-warning ">Cancelar</a>
-            
-            <a href="studentsList.html" className="btn">
+            <Link className="btn btn-warning " to="/">Cancelar</Link>
+
+            <Link to="/" className="btn">
                 <button className="btn">
                 Salvar
                 </button>
-            </a>
+            </Link>
           
         </div>
     </form>

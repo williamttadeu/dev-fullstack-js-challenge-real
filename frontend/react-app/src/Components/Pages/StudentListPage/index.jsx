@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import Loader from "../../Shared/NavBar/Loader";
+import {Link} from "react-router-dom"
 
 class StudentListPage extends React.Component{
 
@@ -92,8 +93,7 @@ class StudentListPage extends React.Component{
                         }}  placeholder="Digite sua Busca"/>
                         <button>Pesquisar</button>
                     </form>
-
-                    <a className="btn btn-dark" href="student/add">Cadastrar Aluno</a>
+                    <Link className="btn btn-dark" to="student/add">Cadastrar Aluno</Link>
                 
                 </div>
 
@@ -116,7 +116,8 @@ class StudentListPage extends React.Component{
                                     <td>{student.name}</td>
                                     <td>{student.cpf}</td>
                                     <td>
-                                        <a href={`/student/edit/${student.ra}`}>Editar</a>
+                                        <Link to={`/student/edit/${student.ra}`}>Editar</Link>
+                                        {/* <a href={`/student/edit/${student.ra}`}>Editar</a> */}
                                         <a id="" className="removeStudent" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
                                     </td>
                                 </tr>
