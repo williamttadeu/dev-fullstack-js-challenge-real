@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import Loader from "../../Shared/NavBar/Loader";
 import {Link} from "react-router-dom"
+import { Navigate } from "react-router-dom";
 
 class StudentListPage extends React.Component{
 
@@ -117,8 +118,8 @@ class StudentListPage extends React.Component{
                                     <td>{student.cpf}</td>
                                     <td>
                                         <Link to={`/student/edit/${student.ra}`}>Editar</Link>
-                                        {/* <a href={`/student/edit/${student.ra}`}>Editar</a> */}
                                         <a id="" className="removeStudent" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
+                                        {/* <Link to="/#" id="" className="removeStudent">Excluir</Link> */}
                                     </td>
                                 </tr>
                             );

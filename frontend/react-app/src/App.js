@@ -20,7 +20,14 @@ function App() {
            />
 
           <Route 
-            path='/student/edit/:ra' 
+            path='*' 
+            element={<div className="padding-left-right-20">
+              <h1>Erro 404</h1>
+              <p>Desculpe, não conseguimos encontrar a página que você solicitou</p>
+            </div>}
+          />
+          <Route 
+            path='/student/edit/:id' 
             element={<StudentManagerPage/>}
           />
           

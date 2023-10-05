@@ -1,10 +1,11 @@
 import "./style.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loader from "../../../Shared/NavBar/Loader";
-import { Navigate,Link } from "react-router-dom";
+import { Navigate,Link, useParams } from "react-router-dom";
 
 const StudentManagerPage =()=>{
 
+    const {id} = useParams()
     const [isRedirect, setIsRedirect] = useState(false)
     const [isLoading,updateIsLoading] = useState(false)
 
@@ -13,13 +14,28 @@ const StudentManagerPage =()=>{
     const[cpf, updateCpf] =useState("")
     const[ra, updateRa] =useState("")
 
-    const isEditingMode = ()=>{
-        return false
+
+    const fetchStudent=()=>{
+
+        updateIsLoading(true)
+        fetch(`http://localhost:3006/students/find/${id}`)
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                updateName(data.name)
+                updateCpf(data.cpf)
+                updateEmail(data.email)
+                updateRa(data.ra)    
+                updateIsLoading(false)
+            });
     }
 
-    const getRaFromUrl = ()=>{
-        return 0
-    }
+    useEffect(()=>{
+        if(id){fetchStudent()}
+    },[])
+
+
 
     const  onSubmitForm = (event) =>{
         event.preventDefault();
@@ -30,39 +46,39 @@ const StudentManagerPage =()=>{
             ra,
             email,
         };
-        console.log(body)
 
         //To avoid code repetition
         let methodEndpoint;
         let urlEndpoint;
 
-        if(isEditingMode()){
+        if(id){
+            console.log('id true')
             methodEndpoint = "PUT";
-            urlEndpoint = `http://localhost:3006/students/edit/${getRaFromUrl()}`;
+            urlEndpoint = `http://localhost:3006/students/edit/${id}`;
         }else{
+            console.log('id false')
             methodEndpoint = "POST";
             urlEndpoint = `http://localhost:3006/students/save`;
         }
-        console.log(methodEndpoint,urlEndpoint);
-
-         fetch(urlEndpoint, {
-            method: methodEndpoint,
-            body: JSON.stringify(body),
-            headers:{
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                    },
-            })
-            .then((response)=>{
-                return response.json();
-            })
-            .then((data)=>{
-                alert(data.message);
-                if(data.result){
-                    setIsRedirect(true)
-                document.location.href = "/";
-                }
-            });
+        
+        fetch(urlEndpoint, {
+        method: methodEndpoint,
+        body: JSON.stringify(body),
+        headers:{
+            Accept: "application/json",
+            "Content-Type": "application/json",
+                },
+        })
+        .then((response)=>{
+            return response.json();
+        })
+        .then((data)=>{
+            alert(data.message);
+            if(data.result){
+                setIsRedirect(true)
+            document.location.href = "/";
+            }
+        });
     }
 
     if(isRedirect){
