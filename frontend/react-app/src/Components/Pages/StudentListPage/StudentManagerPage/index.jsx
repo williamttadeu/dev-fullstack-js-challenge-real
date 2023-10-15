@@ -15,6 +15,8 @@ const StudentManagerPage =()=>{
     const[ra, updateRa] =useState("")
 
 
+
+
     const fetchStudent=()=>{
 
         updateIsLoading(true)
@@ -31,9 +33,10 @@ const StudentManagerPage =()=>{
             });
     }
 
-    useEffect(()=>{
-        if(id){fetchStudent()}
-    },[])
+    //    fetchStudent()
+      useEffect(()=>{
+         if(id){fetchStudent()}
+      },[])
 
 
 
@@ -52,11 +55,9 @@ const StudentManagerPage =()=>{
         let urlEndpoint;
 
         if(id){
-            console.log('id true')
             methodEndpoint = "PUT";
             urlEndpoint = `http://localhost:3006/students/edit/${id}`;
         }else{
-            console.log('id false')
             methodEndpoint = "POST";
             urlEndpoint = `http://localhost:3006/students/save`;
         }
@@ -125,11 +126,11 @@ const StudentManagerPage =()=>{
         <div className="actions">
             <Link className="btn btn-warning " to="/">Cancelar</Link>
 
-            <Link to="/" className="btn">
+            {/* <Link to="/" className="btn"> */}
                 <button className="btn">
                 Salvar
                 </button>
-            </Link>
+            {/* </Link> */}
           
         </div>
     </form>
