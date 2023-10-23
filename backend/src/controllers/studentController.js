@@ -113,7 +113,6 @@ module.exports = class studentsController{
 
     }
     editStudentByRA = async (req,res)=>{
-      console.log('tentatica de edição')
       const CheckIfEditDataIsValid = await this.CheckIfEditDataIsValid(req.body);
       if(CheckIfEditDataIsValid != true){
           return res.status(400).send({

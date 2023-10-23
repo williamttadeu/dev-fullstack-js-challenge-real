@@ -2,6 +2,7 @@ import "./style.css"
 import { useState, useEffect } from "react";
 import Loader from "../../../Shared/NavBar/Loader";
 import { Navigate,Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const StudentManagerPage =()=>{
 
@@ -13,6 +14,8 @@ const StudentManagerPage =()=>{
     const[email, updateEmail] =useState("")
     const[cpf, updateCpf] =useState("")
     const[ra, updateRa] =useState("")
+    const[raReadonly, updateRaReadonly] = useState(false)
+    const[cpfReadonly, updateCpfReadonly] = useState(false)
 
 
 
@@ -33,11 +36,13 @@ const StudentManagerPage =()=>{
             });
     }
 
-    //    fetchStudent()
       useEffect(()=>{
-         if(id){fetchStudent()}
+         if(id){
+            fetchStudent();
+            updateRaReadonly (true)
+            updateCpfReadonly (true)
+            }
       },[])
-
 
 
     const  onSubmitForm = (event) =>{
@@ -74,10 +79,14 @@ const StudentManagerPage =()=>{
             return response.json();
         })
         .then((data)=>{
-            alert(data.message);
+            
+            //alert(data.message);
             if(data.result){
+                Swal.fire('Parabéns',data.message,'success')
                 setIsRedirect(true)
-            document.location.href = "/";
+            //document.location.href = "/";
+            }else{
+                Swal.fire('Desculpe...',data.message,'error')
             }
         });
     }
@@ -112,13 +121,13 @@ const StudentManagerPage =()=>{
         </div>
         <div className="form-group">
             <label htmlFor="ra">RA</label>
-            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" value={ra} onChange={(event)=>{
+            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" value={ra} readOnly={raReadonly} onChange={(event)=>{
                 updateRa(event.target.value)
             }} required/>
         </div>
         <div className="form-group">
             <label htmlFor="cpf">CPF</label>
-            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" value={cpf} onChange={(event)=>{
+            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" value={cpf} readOnly={cpfReadonly} onChange={(event)=>{
                 updateCpf(event.target.value)
             }} required/>
         </div>
