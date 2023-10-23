@@ -1,7 +1,8 @@
 /* Begin NAV-BAR */
 
 .main-nav{
-    background-color: #212529;
+  background-image: linear-gradient(to right, #141e30,#243b55) !important;
+    /* background-color: #212529; */
     width: 250px;
     height: 100vh;
   }
@@ -10,10 +11,10 @@
     font-size: 20px;
     font-weight: 600;
     color: white;
-    text-align: center;
-  /*     justify-content: center; */
-    padding-top: 20px;
-    padding-bottom: 20px;
+    display: flex ;
+    align-items: center;
+    justify-content: center ;
+    height: 50px;
     border-bottom: 1px solid gray;
   }
   
@@ -32,10 +33,14 @@
     padding: 5px;
     display: block;
     border-radius: 5px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
   
   .main-nav .nav-links a.nav-item:hover{
-    background-color: #0d6efd;
-    display: block;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
   }
   

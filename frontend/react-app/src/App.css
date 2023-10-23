@@ -17,14 +17,13 @@
 }
 
 .container .main-header{
-  background-color: #21252980;
-/*     width: 100%; Não precisa por conta do witdh do container */
-  height: 40px;
+  height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 350;
+  font-size: 22px;
+  padding-left: 20px;
 
 }
 
@@ -42,7 +41,7 @@
 }
 
 .btn.btn-dark{
-  background-color: #212529;
+  background-image: linear-gradient(to right, #141e30,#243b55) !important;
   border-color: #212529;
   color: #fff;
   vertical-align: middle;

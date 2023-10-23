@@ -1,12 +1,15 @@
-.container .content-page .top-actions{
+body{
+  background-color: #f1f4f6;
+  color: #495057;
+}
+.container .content-page .card{
     margin-top: 20px;
-    
+    padding: 20px;
     display: flex;
     justify-content: space-between;
-  }
-  
-  .container .content-page .top-actions .form-search{
-    
+    box-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
   }
   
   .container .content-page .table-list{
@@ -14,22 +17,52 @@
     margin-top: 20px;
     text-align: center;
     border-collapse: collapse;
-    border: 1px solid black;
+    
     border-radius: 0.5rem;
-    border-color: #dee2e6;
+    
+  }
+  .container .content-page .table-list .action-link{
+    text-transform: lowercase;
+    margin-left: 20px;
+    font-weight: bold;
+
   }
   
   .container .content-page .table-list thead{
     height: 50px;
-    background-color: #21252940;;
+    border-top: 1px solid #e9ecef;
+    border-top: 3px solid #e9ecef;
   }
   
   
   .container .content-page .table-list tbody tr{
     height: 40px;
+    border-top: 1px solid #e9ecef;
   }
   
   /* ZEBRA colors */
   .container .content-page .table-list tr:nth-child(even){
-    background-color: #21252920;
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .card .form-search{
+    height: 40px;
+    border: 1px solid #ced4da;
+    border: 1px solid black;
+    max-width: 1000px;
+    display: flex;
+  }
+
+  .card .form-search input{
+    border: 0px;
+    height: 100%;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .card .form-search button{
+    border: 0px;
+    border-left: 1px solid black;
+    height: 100%;
+    width: 100px;
   }

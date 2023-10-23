@@ -106,7 +106,7 @@ class StudentListPage extends React.Component{
             <>
             <header className="main-header">Lista de Alunos</header>
             <div className="padding-left-right-20">                               
-                <div className="top-actions">
+                <div className="card">
                     <form onSubmit={this.onSubmitFormSearch} id="formSearchStudent" className="form-search">
                         <input type="text" name='searchInput' id="searchInput" value={this.state.formSearch.searchInput} 
                         onChange={(event)=>{
@@ -121,7 +121,7 @@ class StudentListPage extends React.Component{
                     <Link className="btn btn-dark" to="student/add">Cadastrar Aluno</Link>
                 
                 </div>
-
+                <div className="card">
                 <table id="studentList" className="table-list">
                     <thead>
                         <tr>
@@ -141,8 +141,8 @@ class StudentListPage extends React.Component{
                                     <td>{student.name}</td>
                                     <td>{student.cpf}</td>
                                     <td>
-                                        <Link to={`/student/edit/${student.ra}`}>Editar</Link>
-                                        <a id="" className="removeStudent" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
+                                        <Link className="action-link" to={`/student/edit/${student.ra}`}>Editar</Link>
+                                        <a id="" className="removeStudent action-link" href="/#" onClick={()=>{this.onClickRemoveStudent(student.ra)}}>Excluir</a>
                                         {/* <Link to="/#" id="" className="removeStudent">Excluir</Link> */}
                                     </td>
                                 </tr>
@@ -151,6 +151,7 @@ class StudentListPage extends React.Component{
                         })}
                     </tbody>
                 </table>
+                </div>
             </div>
         
             </>
