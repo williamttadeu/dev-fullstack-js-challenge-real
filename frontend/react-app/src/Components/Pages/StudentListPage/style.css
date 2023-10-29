@@ -2,15 +2,7 @@ body{
   background-color: #f1f4f6;
   color: #495057;
 }
-.container .content-page .card{
-    margin-top: 20px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-  }
+
   
   .container .content-page .table-list{
     width: 100%;

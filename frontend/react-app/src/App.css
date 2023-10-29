@@ -67,7 +67,17 @@
 .display-none{
   display: none;
 }
-/* LOADING */
+
+
+.card{
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
 
 
 

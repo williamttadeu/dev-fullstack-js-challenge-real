@@ -105,44 +105,47 @@ const StudentManagerPage =()=>{
 
             {/* <div className="loader"></div> */}
             <div className="content-page padding-left-right-20">
-                <form className="form" id="studentForm" method="post" onSubmit={onSubmitForm}>
-                <div className="form-group">
-                <label htmlFor="name">Nome</label>
-                <input type="text" name="name" id="name" placeholder="Informe o nome completo" value={name} onChange={(event)=>{
-                updateName(event.target.value)
-                    }} required/>
-            </div>
+                <div className="card">
+                    <form className="form" id="studentForm" method="post" onSubmit={onSubmitForm}>
+                        <div className="form-group">
+                            <label htmlFor="name">Nome</label>
+                            <input type="text" name="name" id="name" placeholder="Informe o nome completo" value={name} onChange={(event)=>{
+                            updateName(event.target.value)
+                            }} required/>
+                        </div>
 
-        <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Informe o nome e-mail" value={email} onChange={(event)=>{
-                updateEmail(event.target.value)
-            }} required/>
-        </div>
-        <div className="form-group">
-            <label htmlFor="ra">RA</label>
-            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" value={ra} readOnly={raReadonly} onChange={(event)=>{
-                updateRa(event.target.value)
-            }} required/>
-        </div>
-        <div className="form-group">
-            <label htmlFor="cpf">CPF</label>
-            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" value={cpf} readOnly={cpfReadonly} onChange={(event)=>{
-                updateCpf(event.target.value)
-            }} required/>
-        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Informe o nome e-mail" value={email} onChange={(event)=>{
+                                updateEmail(event.target.value)
+                            }} required/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="ra">RA</label>
+                            <input type="text" name="ra" id="ra" placeholder="Informe o nome registro acadêmico" value={ra} readOnly={raReadonly} onChange={(event)=>{
+                                updateRa(event.target.value)
+                            }} required/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="cpf">CPF</label>
+                            <input type="number" name="cpf" id="cpf" placeholder="Informe o número do documento" value={cpf} readOnly={cpfReadonly} onChange={(event)=>{
+                                updateCpf(event.target.value)
+                            }} required/>
+                        </div>
 
-        <div className="actions">
-            <Link className="btn btn-warning " to="/">Cancelar</Link>
+                        <div className="actions">
+                            <Link className="btn btn-warning " to="/">Cancelar</Link>
 
-            {/* <Link to="/" className="btn"> */}
-                <button className="btn">
-                Salvar
-                </button>
-            {/* </Link> */}
+                            {/* <Link to="/" className="btn"> */}
+                                <button className="btn btn-dark">
+                                Salvar
+                                </button>
+                            {/* </Link> */}
+                        </div>
           
-        </div>
-    </form>
+        
+                    </form>
+                </div>
     
     </div>
         </>
